@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+Frutin - الگوی HTML غذای ارگانیک و سالم - جزئیات وبلاگ
+{% endblock %}
+{% block content %}
+<div class="col-xxl-8 col-lg-7">
+{% if blogs_list %}
+    {% for blog in blogs_list %}
+        <div class="th-blog blog-single has-post-thumbnail">
+        <div class="blog-img th-slider" data-slider-options='{"effect":"fade"}'>
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><a href="blog-details.html"><img src="assets/img/blog/blog-s-1-2.jpg"
+                            alt="Blog Image"></a></div>
+                <div class="swiper-slide"><a href="blog-details.html"><img src="assets/img/blog/blog-s-1-4.jpg"
+                            alt="Blog Image"></a></div>
+            </div>
+            <button class="slider-arrow slider-prev"><i class="far fa-arrow-left"></i></button><button
+                class="slider-arrow slider-next"><i class="far fa-arrow-right"></i></button>
+        </div>
+        <div class="blog-content">
+            <div class="blog-meta">
+                <a class="author" href="blog.html"><i class="far fa-user"></i>{% blog.author %}</a><a href="blog.html">
+                    <i class="far fa-calendar"></i>{{ blog.created_at|jformat:"%A %d %B %Y %H:%M"}}</a><a href="blog-details.html">
+                    <i class="far fa-comments"></i>نظرات (3)</a>
+            </div>
+            <h2 class="blog-title"><a href="blog-details.html">{{blog.title}}</a></h2>
+            <p class="blog-text">{{blog.context}}</p>
+            <a href="{% url 'post-detail' blog.id %}" class="th-btn btn-sm">ادامه مطلب<i class="fas fa-chevrons-right ms-2"></i></a>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+<p>مطلبی منتشر نشده است</p>
+{% endif %}
+</div>
+{% endblock %}

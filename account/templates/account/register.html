@@ -1,0 +1,33 @@
+{% extends 'account/include/base.html' %}
+{% block content %}
+  <div class="container">
+    <input type="checkbox" id="check">
+    <div class="registration form">
+    <header>Login</header>
+      {% if messages %}
+      <ul>
+        {% for ms in messages %}
+        <li>{{ms}}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        <label for="reg_username">user name:</label>
+        <input type="text" placeholder="Enter your email" name="reg_username">
+        <label for="reg_password1">password:</label>
+        <input type="password" placeholder="Create a password" name="reg_password1">
+        <label for="reg_password2">confirm password:</label>
+        <input type="password" placeholder="Create a password" name="reg_password2">
+        <label for="sex">choose your gender:</label>
+        <input type="radio" name="sex">
+        <input type="submit" class="button" value="Signup">
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an account?
+         <a href="{% url 'login' %}">Login</a>
+        </span>
+      </div>
+    </div>
+  </div>
+{% endblock %}
