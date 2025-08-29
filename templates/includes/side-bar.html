@@ -8,24 +8,11 @@
     <div class="widget widget_categories ">
         <h3 class="widget_title">دسته بندی ها</h3>
         <ul>
+            {% for category in catblog %}
             <li>
-                <a href="blog.html">کشاورزی</a><span>(8)</span>
+                <a href="{% url 'blog_by_category' category.id %}">{{category.title}}</a><span>({{category.blog_count}})</span>
             </li>
-            <li>
-                <a href="blog.html">نان و نانوایی</a><span>(10)</span>
-            </li>
-            <li>
-                <a href="blog.html">شیر لبنی</a><span>(12)</span>
-            </li>
-            <li>
-                <a href="blog.html">غذاهای ارگانیک</a><span>(6)</span>
-            </li>
-            <li>
-                <a href="blog.html">سبزیجات تازه</a><span>(8)</span>
-            </li>
-            <li>
-                <a href="blog.html">میوه های تازه</a><span>(11)</span>
-            </li>
+            {% endfor %}
         </ul>
     </div>
     <div class="widget ">
@@ -66,8 +53,9 @@
     <div class="widget widget_tag_cloud ">
         <h3 class="widget_title">برچسب های محبوب</h3>
         <div class="tagcloud">
-            <a href="blog.html">کشاورزی</a><a href="blog.html">لبنیات</a><a href="blog.html">ارگانیک. آلی</a><a
-                href="blog.html">مزرعه</a><a href="blog.html">سبزی</a><a href="blog.html">میوه ها</a>
+            {% for item in tagblogs %}
+            <a href="blog.html">{{item}}</a>
+            {% endfor %}
         </div>
     </div>
 </aside>

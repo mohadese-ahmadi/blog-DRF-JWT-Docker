@@ -4,21 +4,25 @@ Frutin - الگوی HTML غذای ارگانیک و سالم - جزئیات وب
 {% endblock %}
 {% block content %}
 <div class="col-xxl-8 col-lg-7">
-    {% for blog in blogs_list %}
-        <div class="th-blog blog-single has-post-thumbnail">
-        <div class="blog-img"><a href="blog-details.html"><img src="assets/img/blog/blog-s-1-1.jpg"
-                    alt="Blog Image"></a></div>
+    {% for blog in blog_list %}
+    <div class="th-blog blog-single has-post-thumbnail">
+        <div class="blog-img">
+            <a href="blog-details.html">
+                {% if blog.image_file %}
+                <img src="{{ blog.image_file.url }}" alt="Blog Image">
+                {% endif %}
+            </a>
+        </div>
         <div class="blog-content">
             <div class="blog-meta">
-                <a class="author" href="blog.html"><i class="far fa-user"></i>توسط میوه</a><a href="blog.html"><i
-                        class="far fa-calendar"></i>21 ژوئن 2023</a><a href="blog-details.html"><i
-                        class="far fa-comments"></i>نظرات (3)</a>
+                <a class="author" href="blog.html"><i class="far fa-user"></i>توسط {{blog.author}}</a><a
+                    href="blog.html"><i class="far fa-calendar"></i>{{blog.created_at}}</a><a
+                    href="blog-details.html"><i class="far fa-comments"></i>نظرات ({{ blog.comments.count }})</a>
             </div>
-            <h2 class="blog-title"><a href="blog-details.html">عادات غذایی خود را با غذاهای ارگانیک تغییر دهید</a></h2>
-            <p class="blog-text">برخی از مطالعات نشان می دهد که غذاهای ارگانیک ممکن است دارای سطوح بالاتری از مواد مغذی
-                و آنتی اکسیدان های خاص در مقایسه با غذاهای معمولی باشند. با این حال، این می تواند بسته به عواملی مانند
-                کیفیت خاک و شرایط رشد متفاوت باشد.</p>
-            <a href="blog-details.html" class="th-btn btn-sm">ادامه مطلب<i class="fas fa-chevrons-right ms-2"></i></a>
+            <h2 class="blog-title"><a href="blog-details.html">{{ blog.title}}</a></h2>
+            <p class="blog-text">{{blog.description}}</p>
+            <a href="{% url 'post-detail' blog.id %}" class="th-btn btn-sm">ادامه مطلب<i
+                    class="fas fa-chevrons-right ms-2"></i></a>
         </div>
     </div>
     {% endfor %}

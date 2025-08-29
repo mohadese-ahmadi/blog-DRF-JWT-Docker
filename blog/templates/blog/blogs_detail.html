@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load render_partial %}
+{% block title %}
+Frutin - الگوی HTML غذای ارگانیک و سالم - جزئیات وبلاگ
+{% endblock %}
+{% block content %}
+<div class="col-xxl-8 col-lg-7">
+    <div class="th-blog blog-single">
+        <div class="blog-img"><img src="{{ blog.image_file.url }}" alt="Blog Image"></div>
+        <div class="blog-content">
+            <div class="blog-meta">
+                <a class="author" href="blog.html"><i class="far fa-user"></i>توسط میوه</a>
+                <a href="blog.html"><i class="far fa-calendar"></i>21 ژوئن 2023</a>
+                <a href="blog-details.html"><i class="far fa-comments"></i>نظرات (3)</a>
+            </div>
+            <h2 class="blog-title">{{ blogs.title }}</h2>
+            <p>{{ blogs.context  }}</p>
+            <div class="share-links clearfix ">
+                <div class="row justify-content-between">
+                    <div class="col-sm-auto">
+                        <span class="share-links-title">برچسب ها:</span>
+                        {% for tg in blogs.tag.all %}
+                        <div class="tagcloud">
+                            <a href="blog.html">{{tg}}</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-auto text-xl-end">
+                        <span class="share-links-title">اشتراک گذاری در:</span>
+                        <div class="th-social">
+                            <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a><a
+                                href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a><a
+                                href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a><a
+                                href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% render_partial 'blog.views.blogComment' pk=blogs.pk %}
+</div>
+{% endblock %}

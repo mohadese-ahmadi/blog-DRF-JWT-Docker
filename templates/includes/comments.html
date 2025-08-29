@@ -1,0 +1,21 @@
+<div class="th-comments-wrap">
+  <h2 class="blog-inner-title h4">
+    <i class="far fa-comments"></i> نظرات ({{ post.comments.count }})
+  </h2>
+
+  <ul class="comment-list">
+    {% for comment in comments %}
+      {% include "blog/comment_item.html" with comment=comment %}
+    {% endfor %}
+  </ul>
+</div>
+{% if user.is_authenticated %}
+<form method="post">
+  {% csrf_token %}
+  <textarea name="content" rows="4" placeholder="نظر خود را بنویسید..."></textarea>
+  <input type="hidden" name="parent_id" id="parent_id">
+  <button type="submit">ارسال</button>
+</form>
+{% else %}
+<p>برای ارسال نظر <a href="{% url 'login' %}">وارد شوید</a>.</p>
+{% endif %}

@@ -1,0 +1,33 @@
+<li class="th-comment-item">
+  <div class="th-post-comment">
+    <div class="comment-avater">
+      <img src="https://ui-avatars.com/api/?name={{ comment.user.username }}" alt="{{ comment.user.username }}">
+    </div>
+    <div class="comment-content">
+      <span class="commented-on">
+        <i class="far fa-calendar"></i> {{ comment.created_at|date:"d M Y" }}
+      </span>
+      <h3 class="name">{{ comment.user.username }}</h3>
+      <p class="text">{{ comment.content }}</p>
+      <div class="reply_and_edit">
+        <a href="#" class="reply-btn" onclick="setReply({{ comment.id }})">
+          <i class="fas fa-reply"></i> پاسخ
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {% if comment.children %}
+  <ul class="children">
+    {% for reply in comment.children %}
+      {% include "blog/comment_item.html" with comment=reply %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+</li>
+<script>
+function setReply(parentId) {
+  document.getElementById("parent_id").value = parentId;
+  window.scrollTo(0, document.body.scrollHeight);
+}
+</script>
