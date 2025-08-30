@@ -9,12 +9,15 @@ from django.db.models import Count
 # Create your views here.
 class BlogsList(ListView):
     model=Blogs
+    ordering=['-created_at']
 
 @method_decorator(login_required,name='dispatch' )
 class BlogsCreateView(CreateView):
     model=Blogs
     fields=['title', 'context','image_file','category', 'tag']
-    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 class BlogsDetailView(DetailView):
     model=Blogs
@@ -36,8 +39,7 @@ class BlogsDeleteView(UserPassesTestMixin, DeleteView):
         return self.request.user == blog.author
 
 def HomeView(request):
-    blogObject=Blogs.objects.all().order_by('created_at')
-
+    blogObject=Blogs.objects.all().order_by('-created_at')
     return render(request, 'blog/blog.html',{'blog_list':blogObject})
 
 ## view of partials
@@ -46,10 +48,11 @@ def mainHeader(request):
 def footer(request):
     return render(request,'includes/footer.html')
 def sideBar(request):
+    posts=Blogs.objects.all().order_by('-created_at')[:3]
     categoryblog=Category.objects.annotate(blog_count=Count('blogscat'))
     tagblog=Tags.objects.annotate(tg_count=Count('blogstag')).order_by('tg_count')
     tagblogs=tagblog[:5]
-    return render(request,'includes/side-bar.html',{'catblog':categoryblog, 'tagblogs':tagblogs})
+    return render(request,'includes/side-bar.html',{'catblog':categoryblog, 'tagblogs':tagblogs, 'lastposts':posts})
 
 def blog_by_category(request, category_id):
     category = Category.objects.get(id=category_id)
