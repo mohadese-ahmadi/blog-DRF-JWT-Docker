@@ -1,6 +1,7 @@
 asgiref==3.9.1
 attrs==25.3.0
 Django==5.2.5
+django-environ==0.12.0
 django-render-partial==0.4
 django-restframework==0.0.1
 djangorestframework==3.16.1

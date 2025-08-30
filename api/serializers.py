@@ -5,10 +5,14 @@ class BlogSerializer(serializers.ModelSerializer):
         model=Blogs
         fields='__all__'
     def validate_title(self, value):
-        if len(value)<5:
-            raise serializers.ValidationError("Title must be more than 5 chars")
+        if not value.strip():
+            raise serializers.ValidationError("Title cannot be blank.")
         return value
-    
+    def validate_content(self, value):
+        if len(value.strip()) < 10:
+            raise serializers.ValidationError("Content is too short.")
+        return value
+
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model=Tags
