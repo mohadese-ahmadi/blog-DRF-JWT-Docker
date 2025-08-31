@@ -57,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware", 
 ]
 
 ROOT_URLCONF = 'DANAPROJ.urls'
@@ -129,7 +131,7 @@ USE_TZ = True
 
 STATICFILES_DIRS=[BASE_DIR/'static/']
 STATIC_URL = '/static/'
-STATIC_ROOT='staticfiles/'
+STATIC_ROOT= BASE_DIR / "staticfiles" 
 MEDIA_URL = '/media/'
 MEDIA_ROOT=BASE_DIR/'mediafiles/'
 # Default primary key field type
@@ -152,9 +154,9 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
-# SimpleJWT settings (اختیاری اما بهتره داشته باشی)
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

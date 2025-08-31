@@ -6,10 +6,12 @@ from .models import Blogs, Comment, Category, Tags
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 from django.urls import reverse_lazy
 from django.db.models import Count
+from django.core.paginator import Paginator
 # Create your views here.
 class BlogsList(ListView):
     model=Blogs
     ordering=['-created_at']
+    paginate_by = 2
 
 @method_decorator(login_required,name='dispatch' )
 class BlogsCreateView(CreateView):
@@ -39,8 +41,11 @@ class BlogsDeleteView(UserPassesTestMixin, DeleteView):
         return self.request.user == blog.author
 
 def HomeView(request):
-    blogObject=Blogs.objects.all().order_by('-created_at')
-    return render(request, 'blog/blog.html',{'blog_list':blogObject})
+    blogObject = Blogs.objects.all().order_by('-created_at')
+    paginator = Paginator(blogObject, 2) 
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'blog/blog.html', {'page_obj': page_obj})
 
 ## view of partials
 def mainHeader(request):

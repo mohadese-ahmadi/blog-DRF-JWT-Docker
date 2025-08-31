@@ -7,11 +7,11 @@ class BlogAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display=['description']
+    list_display=[ 'title','description']
 
 @admin.register(Tags)
 class TagsAdmin(admin.ModelAdmin):
-    list_display=['description']
+    list_display=[ 'title','description']
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
