@@ -13,3 +13,6 @@ POSTGRES_PORT=5432
 POSTGRES_DB=blogdb
 POSTGRES_USER=bloguser
 POSTGRES_PASSWORD=supersecret
+
+for using the current datas:
+docker exec -i project-db-1 psql -U bloguser -d blogdb < backup.sql
