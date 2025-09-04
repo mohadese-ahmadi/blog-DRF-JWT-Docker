@@ -14,11 +14,32 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MenuItem',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200, verbose_name='title')),
-                ('url', models.CharField(help_text='مثلا /about/ یا یک url کامل', max_length=300, verbose_name='link')),
-                ('order', models.PositiveIntegerField(default=0, verbose_name='ordering ')),
-                ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='children', to='blog.menuitem')),
+                ('id',
+                 models.BigAutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
+                ('title',
+                 models.CharField(
+                     max_length=200,
+                     verbose_name='title')),
+                ('url',
+                 models.CharField(
+                     help_text='مثلا /about/ یا یک url کامل',
+                     max_length=300,
+                     verbose_name='link')),
+                ('order',
+                 models.PositiveIntegerField(
+                     default=0,
+                     verbose_name='ordering ')),
+                ('parent',
+                 models.ForeignKey(
+                     blank=True,
+                     null=True,
+                     on_delete=django.db.models.deletion.CASCADE,
+                     related_name='children',
+                     to='blog.menuitem')),
             ],
             options={
                 'ordering': ['order'],

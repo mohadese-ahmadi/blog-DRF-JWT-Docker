@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 import environ
-from datetime import timedelta 
-env=environ.Env()
+from datetime import timedelta
+env = environ.Env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env(os.path.join(BASE_DIR, 'DANAPROJ/.env'))
@@ -25,9 +25,9 @@ environ.Env.read_env(os.path.join(BASE_DIR, 'DANAPROJ/.env'))
 
 SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG',default=True)
+DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS =env.list('ALLOWED_HOSTS', default=[])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 SITE_URL = env("SITE_URL", default="http://localhost:8080")
 
 # Application definition
@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware", 
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'DANAPROJ.urls'
@@ -66,7 +66,7 @@ ROOT_URLCONF = 'DANAPROJ.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,19 +129,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATICFILES_DIRS=[BASE_DIR/'static/']
+STATICFILES_DIRS = [BASE_DIR / 'static/']
 STATIC_URL = '/static/'
-STATIC_ROOT= BASE_DIR / "staticfiles" 
+STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = '/media/'
-MEDIA_ROOT=BASE_DIR/'mediafiles/'
+MEDIA_ROOT = BASE_DIR / 'mediafiles/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-AUTH_USER_MODEL='account.Author'
+AUTH_USER_MODEL = 'account.Author'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE':3,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 3,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',],
     'DEFAULT_PERMISSION_CLASSES': [

@@ -13,11 +13,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='blogs',
             name='image_file',
-            field=models.ImageField(blank=True, null=True, upload_to='product_images/', verbose_name='picture'),
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to='product_images/',
+                verbose_name='picture'),
         ),
         migrations.AlterField(
             model_name='blogs',
             name='tag',
-            field=models.ManyToManyField(related_name='blogstag', to='blog.tags'),
+            field=models.ManyToManyField(
+                related_name='blogstag',
+                to='blog.tags'),
         ),
     ]
