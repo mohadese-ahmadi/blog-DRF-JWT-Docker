@@ -1,12 +1,19 @@
 from rest_framework import serializers
-from blog.models import Blogs, Tags, Category
+from blog.models import Blogs, Tags, Category, Comment
 from account.models import Author
 
 
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blogs
-        fields = '__all__'
+        fields = [
+            'id',
+            'title',
+            'description',
+            'context',
+            'category',
+            'tag',
+            'image_file']
 
     def validate_title(self, value):
         if not value.strip():
@@ -47,3 +54,16 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['id','post', 'content', 'parent', 'created_at', 'user']
+
+
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Author
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'sex', 'is_superuser']
+        read_only_fields = ['id', 'is_superuser']
