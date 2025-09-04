@@ -26,5 +26,16 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Author
-        fields='__all__'
+        model = Author
+        fields = ['id', 'username', 'email', 'password', 'sex']
+        extra_kwargs = {
+            'password': {'write_only': True}}
+    def create(self, validated_data):
+        user = Author(
+            username=validated_data['username'],
+            email=validated_data.get('email', ''),
+            sex=validated_data.get('sex', '')
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
